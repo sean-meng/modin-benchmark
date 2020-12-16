@@ -1,11 +1,10 @@
 import os
 import csv
 import sys
-import statistics
 
 # os.environ["MODIN_ENGINE"] = "ray"  # Modin will use Ray
-# os.environ["MODIN_ENGINE"] = "dask"  # Modin will use Dask
-os.environ["MODIN_ENGINE"] = "mpi"  # Modin will use Ray
+os.environ["MODIN_ENGINE"] = "dask"  # Modin will use Dask
+# os.environ["MODIN_ENGINE"] = "mpi"  # Modin will use Ray
 
 # pass in file_name, num_cpus, num_rows
 if __name__ == "__main__":
@@ -15,7 +14,7 @@ if __name__ == "__main__":
     num_cpus = sys.argv[2]
     csv_size = sys.argv[3]
 
-    # os.environ["MODIN_CPUS"] = num_cpus
+    os.environ["MODIN_CPUS"] = num_cpus
 
     # import ray
     # ray.init(num_cpus=int(num_cpus))
@@ -27,8 +26,9 @@ if __name__ == "__main__":
 
     pandas_duration_list = []
     for i in range(10):
-        start = time.time()
         file_path = csv_size + ".csv"
+        print(file_path)
+        start = time.time()
         pandas_df = pd.read_csv(file_path, parse_dates=["tpep_pickup_datetime", "tpep_dropoff_datetime"], quoting=3)
         end = time.time()
         pandas_duration = end - start

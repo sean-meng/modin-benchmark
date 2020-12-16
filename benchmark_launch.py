@@ -9,10 +9,11 @@ try:
 except OSError:
     pass
 
-for i in range(0,6):
+for i in range(1,6):
     num_cpus = 2**(i-1)
     num_rows = i
     # num_rows = 5
-    subprocess.run(["python3", "modin_benchmark.py", name, str(num_cpus), str(num_rows)])
+    subprocess.run(["python3", "mpi_benchmark.py", name, str(num_cpus), str(num_rows)])
+    print("hi")
 
 print(name, str(num_cpus), str(num_rows))
